@@ -11,14 +11,25 @@
 <body bgcolor="black">
 <div class="prism-player" id="player-con"></div>
 <script>
-var url = window.location.search;
-var url=url.split('=')[1];
 
-if(url.indexOf("http") == -1) {
-    var atob = window.atob(url);
-    url = atob;
+
+
+    // 获取地址栏中的参数
+function getUrlParams(url) {
+	var params = {}; // 用于存储参数的对象
+	var parser = document.createElement('a');
+	parser.href = url;
+	var query = parser.search.substring(1); // 获取查询字符串并去除开头的问号 '?'
+	var vars = query.split('&'); // 将查询字符串分割成参数对
+
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split('=');
+		params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+	}
+
+	return params;
 }
-
+   var  url=getUrlParams('url');
 se = setTimeout(function () { 
     var msg = "点确定加入群聊观看更多，点取消继续观看"; 
     if (confirm(msg)==true){ 
